@@ -18,7 +18,7 @@ export default function About() {
 
         {/* Section Title in Zodiak */}
         <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-light tracking-tight text-[#fcf1d0] leading-[0.95]">
-          A Developer Building with <br />
+          &ldquo;HI, I'm Ferdian&rdquo; <br />
           <span className="font-bold italic text-white">
             Curiosity &amp; Rigor.
           </span>

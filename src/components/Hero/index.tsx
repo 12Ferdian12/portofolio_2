@@ -2,7 +2,9 @@
 
 import React, { useState } from "react";
 import { useLenis } from "lenis/react";
+import Typewriter from "typewriter-effect";
 import DitherSkull from "./DitherSkull";
+import AsciiWaterfall from "./AsciiWaterfall";
 
 function Hero() {
   const lenis = useLenis();
@@ -45,8 +47,11 @@ function Hero() {
         className="pointer-events-none absolute -top-32 -left-20 w-96 h-96 rounded-full bg-[#22396f]/20 blur-3xl"
       />
 
+      {/* 100% Transparent ASCII Waterfall Stream */}
+      <AsciiWaterfall className="pointer-events-none absolute inset-0 z-0 overflow-hidden" />
+
       {/* Main hero content container with responsive left-offsetting */}
-      <div className="relative z-10 max-w-5xl w-full ml-0 sm:ml-6 md:ml-14 lg:ml-24 xl:ml-36 space-y-6 sm:space-y-7">
+      <div className="relative z-10 max-w-6xl xl:max-w-7xl 2xl:max-w-[1440px] w-full ml-0 sm:ml-4 md:ml-8 lg:ml-14 xl:ml-20 space-y-6 sm:space-y-8 animate-hero-entrance">
         {/* Monospace status tag */}
         <div className="mb-0 inline-flex items-center gap-2 font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#fcf1d0]/80 bg-[#0d1c42]/60 px-3 py-1.5 border border-[#22396f]/60 backdrop-blur-sm">
           <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -57,45 +62,67 @@ function Hero() {
           </span>
         </div>
 
-        {/* Hero Title & Right Column (1-bit Dither Skull + Ready to know me below it) */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 sm:gap-8 w-full">
-          <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight text-[#fcf1d0] leading-[0.92] select-none">
-            <span className="block text-[#fcf1d0]/90">&ldquo;Hello</span>
-            <span className="block font-bold italic text-[#fcf1d0] drop-shadow-sm">
-              World.&rdquo;
-            </span>
+        {/* Hero Title & Right Column (1-bit Dither Skull + Ready to know me specimen panel) */}
+        <div className="flex flex-col max-w-7xl lg:flex-row lg:items-end justify-between gap-8 lg:gap-12 w-full">
+          <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight text-[#fcf1d0] leading-[0.92] select-none min-h-[1.9em] sm:min-h-[2em]">
+            <Typewriter
+              onInit={(typewriter) => {
+                typewriter
+                  .typeString("&ldquo;Hello<br />")
+                  .typeString(
+                    '<span class="font-bold italic text-[#fcf1d0] drop-shadow-sm">World.&rdquo;</span>',
+                  )
+                  .pauseFor(4500)
+                  .deleteAll(40)
+                  .start();
+              }}
+              options={{
+                autoStart: true,
+                loop: true,
+                delay: 95,
+                deleteSpeed: 40,
+                cursor: "_",
+                cursorClassName:
+                  "Typewriter__cursor text-emerald-400 font-mono inline-block ml-1 transition-opacity duration-300",
+              }}
+            />
           </h1>
 
-          {/* Section next to "Hello World": Dither Skull with "Ready to know me" below it */}
-          <div className="flex flex-col gap-3.5 shrink-0 w-full sm:w-72 lg:mb-1">
-            {/* 1-bit Dither Skull Art */}
-            <DitherSkull />
+          {/* Section next to "Hello World": Perfectly aligned Dither Skull + Ready to know me specimen panel */}
+          <div className="flex flex-col shrink-0 w-full sm:w-80 md:w-84 lg:w-88 xl:w-96 lg:ml-auto">
+            <div className="group relative flex flex-col bg-[#0d1c42]/85 border  border-[#22396f] hover:border-[#fcf1d0]/50 backdrop-blur-md shadow-2xl shadow-[#010736]/70 transition-all duration-300 w-full select-none">
+              {/* Upper Specimen: 1-bit Dither Skull Art */}
+              <DitherSkull embedded />
 
-            {/* "Ready to know me?" directly below the skull */}
-            <a
-              href="#about"
-              onClick={(e) => scrollToSection(e, "about")}
-              className="group relative flex flex-col justify-between p-3.5 sm:p-4 bg-[#0d1c42]/80 hover:bg-[#0d1c42] border border-[#22396f] hover:border-[#fcf1d0]/60 backdrop-blur-md transition-all duration-200 w-full shadow-lg shadow-[#010736]/40 cursor-pointer"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#fcf1d0]/60">
-                  :discover:
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform" />
-              </div>
-
-              <div className="mt-2.5">
-                <p className="font-serif text-base sm:text-lg font-medium text-[#fcf1d0] group-hover:text-white transition-colors flex items-center justify-between gap-2">
-                  <span>Ready to know me?</span>
-                  <span className="font-sans text-base transition-transform duration-200 group-hover:translate-x-1.5">
-                    &rarr;
+              {/* Lower Action: "Ready to know me?" directly below the skull with shared borders */}
+              <a
+                href="#about"
+                onClick={(e) => scrollToSection(e, "about")}
+                className="group/cta relative flex flex-col justify-between p-3.5 sm:p-4 border-t border-[#22396f] bg-[#010736]/40 hover:bg-[#22396f]/30 transition-all duration-200 w-full cursor-pointer"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#fcf1d0]/70 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 group-hover/cta:scale-125 transition-transform" />
+                    <span>:discover:</span>
                   </span>
-                </p>
-                <p className="font-mono text-[11px] text-[#fcf1d0]/60 mt-0.5 leading-snug">
-                  Read background &amp; journey
-                </p>
-              </div>
-            </a>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#fcf1d0]/50 group-hover/cta:text-[#fcf1d0]/80 transition-colors">
+                    ABOUT_SECTION &darr;
+                  </span>
+                </div>
+
+                <div className="mt-2.5">
+                  <p className="font-serif text-base sm:text-lg font-medium text-[#fcf1d0] group-hover/cta:text-white transition-colors flex items-center justify-between gap-2">
+                    <span>Ready to know me?</span>
+                    <span className="font-sans text-base transition-transform duration-200 group-hover/cta:translate-x-1.5 text-emerald-400">
+                      &rarr;
+                    </span>
+                  </p>
+                  <p className="font-mono text-[11px] text-[#fcf1d0]/60 mt-0.5 leading-snug">
+                    Read background &amp; journey
+                  </p>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
 

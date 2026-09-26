@@ -40,3 +40,43 @@ body {
     linear-gradient(to right, rgba(252, 241, 208, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(252, 241, 208, 0.04) 1px, transparent 1px);
 }
+
+/* Typewriter Cursor & Entrance Transitions */
+.Typewriter__cursor {
+  font-family: monospace;
+  font-weight: 400;
+  color: #34d399;
+  display: inline-block;
+  margin-left: 0.15em;
+  animation: typewriterCursorBlink 0.9s steps(2, start) infinite;
+  text-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+}
+
+@keyframes typewriterCursorBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.Typewriter__wrapper {
+  display: inline;
+}
+
+@keyframes heroEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-entrance {
+  animation: heroEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
