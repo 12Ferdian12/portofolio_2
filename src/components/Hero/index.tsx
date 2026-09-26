@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useLenis } from "lenis/react";
+import DitherSkull from "./DitherSkull";
 
 function Hero() {
   const lenis = useLenis();
@@ -45,9 +46,9 @@ function Hero() {
       />
 
       {/* Main hero content container with responsive left-offsetting */}
-      <div className="relative z-10 max-w-4xl w-full ml-0 sm:ml-6 md:ml-14 lg:ml-24 xl:ml-36 space-y-6 sm:space-y-7">
+      <div className="relative z-10 max-w-5xl w-full ml-0 sm:ml-6 md:ml-14 lg:ml-24 xl:ml-36 space-y-6 sm:space-y-7">
         {/* Monospace status tag */}
-        <div className="inline-flex items-center gap-2 font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#fcf1d0]/80 bg-[#0d1c42]/60 px-3 py-1.5 border border-[#22396f]/60 backdrop-blur-sm">
+        <div className="mb-0 inline-flex items-center gap-2 font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#fcf1d0]/80 bg-[#0d1c42]/60 px-3 py-1.5 border border-[#22396f]/60 backdrop-blur-sm">
           <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span>:status: system_active</span>
           <span className="text-[#22396f]">{"//"}</span>
@@ -56,8 +57,8 @@ function Hero() {
           </span>
         </div>
 
-        {/* Hero Title & About Callout */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8">
+        {/* Hero Title & Right Column (1-bit Dither Skull + Ready to know me below it) */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 sm:gap-8 w-full">
           <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight text-[#fcf1d0] leading-[0.92] select-none">
             <span className="block text-[#fcf1d0]/90">&ldquo;Hello</span>
             <span className="block font-bold italic text-[#fcf1d0] drop-shadow-sm">
@@ -65,12 +66,16 @@ function Hero() {
             </span>
           </h1>
 
-          {/* Section next to "Hello World" directing to About */}
-          <div className="lg:mb-2 shrink-0">
+          {/* Section next to "Hello World": Dither Skull with "Ready to know me" below it */}
+          <div className="flex flex-col gap-3.5 shrink-0 w-full sm:w-72 lg:mb-1">
+            {/* 1-bit Dither Skull Art */}
+            <DitherSkull />
+
+            {/* "Ready to know me?" directly below the skull */}
             <a
               href="#about"
               onClick={(e) => scrollToSection(e, "about")}
-              className="group relative flex flex-col justify-between p-4 sm:p-5 bg-[#0d1c42]/80 hover:bg-[#0d1c42] border border-[#22396f] hover:border-[#fcf1d0]/60 backdrop-blur-md transition-all duration-200 w-full sm:w-72 shadow-lg shadow-[#010736]/40 cursor-pointer"
+              className="group relative flex flex-col justify-between p-3.5 sm:p-4 bg-[#0d1c42]/80 hover:bg-[#0d1c42] border border-[#22396f] hover:border-[#fcf1d0]/60 backdrop-blur-md transition-all duration-200 w-full shadow-lg shadow-[#010736]/40 cursor-pointer"
             >
               <div className="flex items-center justify-between gap-4">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#fcf1d0]/60">
@@ -79,14 +84,14 @@ function Hero() {
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform" />
               </div>
 
-              <div className="mt-3">
+              <div className="mt-2.5">
                 <p className="font-serif text-base sm:text-lg font-medium text-[#fcf1d0] group-hover:text-white transition-colors flex items-center justify-between gap-2">
                   <span>Ready to know me?</span>
                   <span className="font-sans text-base transition-transform duration-200 group-hover:translate-x-1.5">
                     &rarr;
                   </span>
                 </p>
-                <p className="font-mono text-[11px] text-[#fcf1d0]/60 mt-1 leading-snug">
+                <p className="font-mono text-[11px] text-[#fcf1d0]/60 mt-0.5 leading-snug">
                   Read background &amp; journey
                 </p>
               </div>
