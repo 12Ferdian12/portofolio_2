@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useLenis } from "lenis/react";
 
 interface NavItem {
   name: string;
   href: string;
-  badge?: string;
 }
 
 const navItems: NavItem[] = [
@@ -21,32 +21,25 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
 
-  // Track scroll state for glassmorphism elevation effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+  // Track scroll with Lenis for smooth navbar elevation and scroll spy
+  const lenis = useLenis(({ scroll }) => {
+    setScrolled(scroll > 20);
 
-      // Section spy to highlight current active link
-      const scrollPosition = window.scrollY + 120;
-      for (const item of navItems) {
-        const id = item.href.replace("#", "");
-        const element = document.getElementById(id);
-        if (element) {
-          const top = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(item.name);
-            break;
-          }
+    const scrollPosition = scroll + 140;
+    for (const item of navItems) {
+      const id = item.href.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        const top = element.offsetTop;
+        const height = element.offsetHeight;
+        if (scrollPosition >= top && scrollPosition < top + height) {
+          setActiveSection(item.name);
+          break;
         }
       }
-    };
+    }
+  });
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Close mobile menu on resize to desktop & disable scroll when open
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -69,7 +62,6 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  // Handle smooth scroll navigation
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string,
@@ -80,56 +72,61 @@ export default function Navbar() {
     setIsOpen(false);
 
     if (href === "#hero" || href === "#") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (lenis) {
+        lenis.scrollTo(0);
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
       return;
     }
 
     const targetElement = document.querySelector(href);
     if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth" });
+      if (lenis) {
+        lenis.scrollTo(targetElement as HTMLElement, { offset: -20 });
+      } else {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-        scrolled ? "py-2 sm:py-3" : "py-4 sm:py-6"
+        scrolled ? "py-2 sm:py-3" : "py-4 sm:py-5"
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <nav
-          className={`flex items-center justify-between rounded-2xl md:rounded-full px-4 sm:px-6 py-2.5 transition-all duration-300 ${
+          className={`flex items-center justify-between px-4 sm:px-6 py-2.5 transition-all duration-300 border ${
             scrolled
-              ? "bg-white/85 dark:bg-neutral-900/85 backdrop-blur-md shadow-lg shadow-black/5 dark:shadow-black/20 border border-neutral-200/80 dark:border-neutral-800/80"
-              : "bg-white/60 dark:bg-neutral-900/60 backdrop-blur-sm border border-neutral-200/40 dark:border-neutral-800/40 shadow-sm"
+              ? "bg-[#0d1c42]/90 backdrop-blur-md shadow-xl shadow-[#010736]/60 border-[#22396f]/70"
+              : "bg-[#010736]/75 backdrop-blur-sm border-[#22396f]/40"
           }`}
           aria-label="Main Navigation"
         >
-          {/* Logo / Brand */}
+          {/* Logo / Brand in Zodiak Font & Warm Cream */}
           <a
             href="#hero"
             onClick={(e) => handleNavClick(e, "#hero", "Home")}
-            className="group flex items-center gap-2.5 text-neutral-900 dark:text-white font-semibold tracking-tight text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg"
+            className="group flex items-center gap-3 text-[#fcf1d0] focus:outline-none"
           >
-            <span className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-amber-500 to-amber-600 text-white font-bold text-sm shadow-md shadow-amber-500/25 group-hover:scale-105 transition-transform duration-200">
-              P
+            <span className="flex h-7 w-7 items-center justify-center bg-[#fcf1d0] text-[#010736] font-mono font-bold text-xs uppercase transition-transform group-hover:scale-105">
+              H
             </span>
             <div className="flex flex-col">
-              <span className="leading-tight group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-                Portfolio<span className="text-amber-500">.</span>
+              <span className="font-serif font-bold text-lg sm:text-xl tracking-tight leading-none text-[#fcf1d0]">
+                Ferdian<span className="text-[#22396f]">.</span>
               </span>
-              <span className="flex items-center gap-1.5 text-[10px] font-normal text-neutral-500 dark:text-neutral-400">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-                </span>
-                Available for work
+              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#fcf1d0]/70 flex items-center gap-1.5 mt-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                :available:
               </span>
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-1 p-1 rounded-full bg-neutral-100/70 dark:bg-neutral-800/70 border border-neutral-200/50 dark:border-neutral-700/50">
+          {/* Desktop Navigation Links with #22396f & #fcf1d0 */}
+          <div className="hidden md:flex items-center gap-1 p-1 bg-[#0d1c42]/60 backdrop-blur-md border border-[#22396f]/50">
             {navItems.map((item) => {
               const isActive = activeSection === item.name;
               return (
@@ -137,34 +134,31 @@ export default function Navbar() {
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href, item.name)}
-                  className={`relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 ${
+                  className={`px-3.5 py-1.5 font-mono text-xs uppercase tracking-[0.12em] transition-all duration-150 ${
                     isActive
-                      ? "text-neutral-900 dark:text-white bg-white dark:bg-neutral-900 shadow-sm shadow-black/5"
-                      : "text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-neutral-700/50"
+                      ? "bg-[#fcf1d0] text-[#010736] font-semibold shadow-sm"
+                      : "text-[#fcf1d0]/80 hover:text-[#fcf1d0] hover:bg-[#22396f]/40"
                   }`}
                 >
-                  {item.name}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-0.5 bg-amber-500 rounded-full" />
-                  )}
+                  :{item.name.toLowerCase()}:
                 </a>
               );
             })}
           </div>
 
-          {/* Desktop Action / CTA Button */}
+          {/* Desktop Action / Connect Button */}
           <div className="hidden md:flex items-center gap-3">
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact", "Contact")}
-              className="group relative inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold tracking-wide text-neutral-900 bg-amber-400 hover:bg-amber-300 active:scale-95 transition-all duration-200 shadow-md shadow-amber-400/20 hover:shadow-amber-400/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#fcf1d0] text-[#010736] font-mono text-xs uppercase tracking-[0.15em] font-semibold hover:bg-white active:scale-95 transition-all shadow-sm shadow-[#010736]/40"
             >
-              <span>Let&apos;s Talk</span>
+              <span>Install / Connect</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
-                className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                className="w-3.5 h-3.5"
               >
                 <path
                   fillRule="evenodd"
@@ -175,29 +169,29 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Hamburger Toggle Button */}
+          {/* Mobile Hamburger Button */}
           <div className="flex items-center gap-2 md:hidden">
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="relative p-2 rounded-xl text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
+              className="relative p-2 text-[#fcf1d0] hover:bg-[#22396f]/40 transition-colors focus:outline-none"
               aria-label={isOpen ? "Close main menu" : "Open main menu"}
               aria-expanded={isOpen}
             >
-              <div className="w-5 h-5 flex flex-col justify-center items-center gap-1">
+              <div className="w-5 h-5 flex flex-col justify-center items-center gap-1.5">
                 <span
-                  className={`block h-0.5 w-5 bg-current rounded-full transition-transform duration-300 ease-in-out ${
-                    isOpen ? "rotate-45 translate-y-1.5" : ""
+                  className={`block h-0.5 w-5 bg-current transition-transform duration-200 ${
+                    isOpen ? "rotate-45 translate-y-2" : ""
                   }`}
                 />
                 <span
-                  className={`block h-0.5 w-5 bg-current rounded-full transition-opacity duration-300 ease-in-out ${
+                  className={`block h-0.5 w-5 bg-current transition-opacity duration-200 ${
                     isOpen ? "opacity-0" : "opacity-100"
                   }`}
                 />
                 <span
-                  className={`block h-0.5 w-5 bg-current rounded-full transition-transform duration-300 ease-in-out ${
-                    isOpen ? "-rotate-45 -translate-y-1.5" : ""
+                  className={`block h-0.5 w-5 bg-current transition-transform duration-200 ${
+                    isOpen ? "-rotate-45 -translate-y-2" : ""
                   }`}
                 />
               </div>
@@ -206,24 +200,24 @@ export default function Navbar() {
         </nav>
       </div>
 
-      {/* Mobile Drawer / Backdrop */}
+      {/* Mobile Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 top-[72px] z-40 bg-black/40 backdrop-blur-sm md:hidden animate-fade-in"
+          className="fixed inset-0 top-[68px] z-40 bg-[#010736]/70 backdrop-blur-sm md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* Mobile Menu Panel */}
       <div
-        className={`md:hidden fixed top-[76px] left-4 right-4 z-40 transition-all duration-300 ease-in-out transform ${
+        className={`md:hidden fixed top-[72px] left-4 right-4 z-40 transition-all duration-200 ease-out transform ${
           isOpen
             ? "opacity-100 scale-100 translate-y-0"
             : "opacity-0 scale-95 -translate-y-4 pointer-events-none"
         }`}
       >
-        <div className="p-4 rounded-3xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border border-neutral-200/80 dark:border-neutral-800/80 shadow-2xl shadow-black/15">
-          <div className="flex flex-col gap-1.5">
+        <div className="p-4 bg-[#0d1c42]/95 backdrop-blur-xl border border-[#22396f] shadow-2xl">
+          <div className="flex flex-col gap-1">
             {navItems.map((item) => {
               const isActive = activeSection === item.name;
               return (
@@ -231,27 +225,27 @@ export default function Navbar() {
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href, item.name)}
-                  className={`flex items-center justify-between px-4 py-3 rounded-2xl text-base font-medium transition-all ${
+                  className={`flex items-center justify-between px-4 py-3 font-mono text-xs uppercase tracking-widest transition-all ${
                     isActive
-                      ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 font-semibold"
-                      : "text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800/60"
+                      ? "bg-[#fcf1d0] text-[#010736] font-semibold"
+                      : "text-[#fcf1d0]/85 hover:bg-[#22396f]/40"
                   }`}
                 >
-                  <span>{item.name}</span>
+                  <span>:{item.name.toLowerCase()}:</span>
                   {isActive && (
-                    <span className="w-2 h-2 rounded-full bg-amber-500" />
+                    <span className="font-sans text-sm">&rarr;</span>
                   )}
                 </a>
               );
             })}
 
-            <div className="pt-3 mt-2 border-t border-neutral-200/60 dark:border-neutral-800/60">
+            <div className="pt-3 mt-2 border-t border-[#22396f]/60">
               <a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, "#contact", "Contact")}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-neutral-900 bg-amber-400 hover:bg-amber-300 shadow-md shadow-amber-400/25 active:scale-98 transition-all"
+                className="w-full flex items-center justify-center gap-2 py-3 font-mono text-xs uppercase tracking-widest font-semibold text-[#010736] bg-[#fcf1d0] hover:bg-white active:scale-[0.98] transition-all"
               >
-                <span>Let&apos;s Connect</span>
+                <span>Install / Connect</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
