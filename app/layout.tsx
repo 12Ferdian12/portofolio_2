@@ -33,6 +33,12 @@ export default function RootLayout({
           href="https://api.fontshare.com/v2/css?f[]=zodiak@100,200,300,400,500,600,700,800,900,1&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
         <Script
           src="https://kit.fontawesome.com/8fa82cf36d.js"
           crossOrigin="anonymous"
