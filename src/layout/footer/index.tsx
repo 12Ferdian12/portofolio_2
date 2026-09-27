@@ -23,7 +23,7 @@ export default function Footer() {
     const el = document.getElementById(targetId);
     if (el) {
       if (lenis) {
-        lenis.scrollTo(el, { offset: -20 });
+        lenis.scrollTo(el, { offset: 0 });
       } else {
         el.scrollIntoView({ behavior: "smooth" });
       }
@@ -33,14 +33,14 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#010736] text-[#fcf1d0] border-t border-[#22396f]/70 hermes-grid overflow-hidden">
+    <footer className="relative bg-[#010736] text-[#fcf1d0] border-t border-[#22396f]/70 hermes-grid overflow-hidden px-6 sm:px-10 md:px-14 lg:px-20">
       {/* Subtle top ambient glow */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#0d1c42]/40 to-transparent"
       />
 
-      <div className="relative z-10 max-w-6xl xl:max-w-7xl 2xl:max-w-[1440px] mx-auto px-6 sm:px-10 md:px-14 lg:px-20 py-16 sm:py-20 space-y-12">
+      <div className="relative z-10 max-w-6xl xl:max-w-7xl 2xl:max-w-[1440px] mx-auto w-full py-16 sm:py-20 space-y-12">
         {/* Main Footer Header Grid */}
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-10 pb-12 border-b border-[#22396f]/60">
           {/* Brand & Mission Statement */}

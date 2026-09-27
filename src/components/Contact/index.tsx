@@ -40,7 +40,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative min-h-screen py-24 sm:py-32 bg-[#010736] text-[#fcf1d0] px-6 sm:px-10 md:px-14 lg:px-20 border-t border-[#22396f]/50 hermes-grid overflow-hidden"
+      className="relative flex flex-col justify-center min-h-screen pt-28 sm:pt-32 pb-20 bg-[#010736] text-[#fcf1d0] px-6 sm:px-10 md:px-14 lg:px-20 border-t border-[#22396f]/50 hermes-grid overflow-hidden"
     >
       {/* Ambient background glow */}
       <div
@@ -52,7 +52,7 @@ export default function Contact() {
         className="pointer-events-none absolute -bottom-32 -left-20 w-96 h-96 rounded-full bg-[#22396f]/20 blur-3xl"
       />
 
-      <div className="relative z-10 max-w-6xl xl:max-w-7xl 2xl:max-w-[1440px] w-full ml-0 sm:ml-4 md:ml-8 lg:ml-14 xl:ml-20 space-y-12 sm:space-y-16">
+      <div className="relative z-10 max-w-6xl xl:max-w-7xl 2xl:max-w-[1440px] mx-auto w-full space-y-12 sm:space-y-16">
         {/* Monospace Section & Status Bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#22396f]/60 font-mono text-[11px] sm:text-xs">
           <div className="inline-flex items-center gap-2 uppercase tracking-[0.2em] text-[#fcf1d0]/80 bg-[#0d1c42]/60 px-3 py-1.5 border border-[#22396f]/60 backdrop-blur-sm">

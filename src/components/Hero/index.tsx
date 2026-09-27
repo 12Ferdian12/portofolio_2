@@ -25,7 +25,7 @@ function Hero() {
     const el = document.getElementById(targetId);
     if (el) {
       if (lenis) {
-        lenis.scrollTo(el, { offset: -20 });
+        lenis.scrollTo(el, { offset: 0 });
       } else {
         el.scrollIntoView({ behavior: "smooth" });
       }
@@ -50,8 +50,8 @@ function Hero() {
       {/* 100% Transparent ASCII Waterfall Stream */}
       <AsciiWaterfall className="pointer-events-none absolute inset-0 z-0 overflow-hidden" />
 
-      {/* Main hero content container with responsive left-offsetting */}
-      <div className="relative z-10 max-w-6xl xl:max-w-7xl 2xl:max-w-[1440px] w-full ml-0 sm:ml-4 md:ml-8 lg:ml-14 xl:ml-20 space-y-6 sm:space-y-8 animate-hero-entrance">
+      {/* Main hero content container centered and responsive */}
+      <div className="relative z-10 max-w-6xl xl:max-w-7xl 2xl:max-w-[1440px] mx-auto w-full space-y-6 sm:space-y-8 animate-hero-entrance">
         {/* Monospace status tag */}
         <div className="mb-0 inline-flex items-center gap-2 font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#fcf1d0]/80 bg-[#0d1c42]/60 px-3 py-1.5 border border-[#22396f]/60 backdrop-blur-sm">
           <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -63,7 +63,7 @@ function Hero() {
         </div>
 
         {/* Hero Title & Right Column (1-bit Dither Skull + Ready to know me specimen panel) */}
-        <div className="flex flex-col max-w-7xl lg:flex-row lg:items-end justify-between gap-8 lg:gap-12 w-full">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12 w-full">
           <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-tight text-[#fcf1d0] leading-[0.92] select-none min-h-[1.9em] sm:min-h-[2em]">
             <Typewriter
               onInit={(typewriter) => {

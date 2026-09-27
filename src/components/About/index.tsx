@@ -22,7 +22,7 @@ export default function About() {
     const el = document.getElementById(targetId);
     if (el) {
       if (lenis) {
-        lenis.scrollTo(el, { offset: -20 });
+        lenis.scrollTo(el, { offset: 0 });
       } else {
         el.scrollIntoView({ behavior: "smooth" });
       }
@@ -54,7 +54,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative min-h-screen py-24 sm:py-32 bg-[#FCF1D0] text-[#010736] px-6 sm:px-10 md:px-14 lg:px-20 border-t border-[#010736]/15 hermes-grid-dark overflow-hidden"
+      className="relative flex flex-col justify-center min-h-screen pt-28 sm:pt-32 pb-20 bg-[#FCF1D0] text-[#010736] px-6 sm:px-10 md:px-14 lg:px-20 border-t border-[#010736]/15 hermes-grid-dark overflow-hidden"
     >
       {/* Subtle ambient lighting on cream paper */}
       <div
@@ -62,7 +62,7 @@ export default function About() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_75%_50%_at_50%_0%,rgba(34,57,111,0.06),transparent_70%)]"
       />
 
-      <div className="relative z-10 max-w-6xl xl:max-w-7xl 2xl:max-w-[1440px] w-full ml-0 sm:ml-4 md:ml-8 lg:ml-14 xl:ml-20 space-y-12 sm:space-y-16">
+      <div className="relative z-10 max-w-6xl xl:max-w-7xl 2xl:max-w-[1440px] mx-auto w-full space-y-12 sm:space-y-16">
         {/* Monospace Section & Status Bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#010736]/15 font-mono text-[11px] sm:text-xs">
           <div className="inline-flex items-center gap-2 uppercase tracking-[0.2em] text-[#010736]/80 bg-[#010736]/5 px-3 py-1.5 border border-[#010736]/15 backdrop-blur-sm">
