@@ -130,7 +130,7 @@ export default function Footer() {
               <ul className="space-y-2 text-[#fcf1d0]/75">
                 <li>
                   <a
-                    href="mailto:contact.ferdian@gmail.com"
+                    href="mailto:contact.ferdianadinata07@gmail.com"
                     className="hover:text-[#fcf1d0] transition-colors flex items-center gap-1.5"
                   >
                     <i
@@ -142,7 +142,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://instagram.com/12ferdian12"
+                    href="https://instagram.com/fercell.7"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-[#fcf1d0] transition-colors flex items-center gap-1.5"
@@ -166,6 +166,20 @@ export default function Footer() {
                       style={{ color: "#FCF1D0" }}
                     />
                     <span>GitHub</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/ferdian-adinata-bbab90309/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#fcf1d0] transition-colors flex items-center gap-1.5"
+                  >
+                    <i
+                      className="fa-brands fa-linkedin text-[11px]"
+                      style={{ color: "#FCF1D0" }}
+                    />
+                    <span>LinkedIn</span>
                   </a>
                 </li>
               </ul>
