@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist_Mono } from "next/font/google";
 import { ReactLenis } from "lenis/react";
 import "lenis/dist/lenis.css";
@@ -31,6 +32,11 @@ export default function RootLayout({
         <link
           href="https://api.fontshare.com/v2/css?f[]=zodiak@100,200,300,400,500,600,700,800,900,1&display=swap"
           rel="stylesheet"
+        />
+        <Script
+          src="https://kit.fontawesome.com/8fa82cf36d.js"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
       </head>
       <body className="min-h-full flex flex-col bg-[#010736] text-[#fcf1d0] font-serif selection:bg-[#fcf1d0] selection:text-[#010736]">
