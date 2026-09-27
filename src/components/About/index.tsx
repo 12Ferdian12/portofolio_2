@@ -86,7 +86,7 @@ export default function About() {
         {/* Section Headline */}
         <div className="space-y-3 max-w-4xl">
           <h2 className="font-serif text-5xl sm:text-7xl md:text-8xl font-light tracking-tight text-[#010736] leading-[0.92] select-none">
-            &ldquo;HI, I&apos;m Ferdian&rdquo;
+            <span className="block">&ldquo;HI, I&apos;m Ferdian&rdquo;</span>
             <span className="block font-bold italic text-3xl sm:text-5xl md:text-6xl text-[#0d1c42] mt-3">
               Curiosity &amp; Rigor.
             </span>

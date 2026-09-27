@@ -215,8 +215,8 @@ export default function Project() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
           <div className="space-y-3 max-w-3xl">
             <h2 className="font-serif text-5xl sm:text-7xl md:text-8xl font-light tracking-tight text-[#fcf1d0] leading-[0.92] select-none">
-              Featured GitHub &amp; <br />
-              <span className="font-bold italic text-[#fcf1d0] drop-shadow-sm">
+              <span className="block">Featured GitHub &amp;</span>
+              <span className="block font-bold italic text-[#fcf1d0] drop-shadow-sm">
                 Engineering Projects.
               </span>
             </h2>
